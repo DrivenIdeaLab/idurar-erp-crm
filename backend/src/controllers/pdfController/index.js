@@ -1,6 +1,6 @@
 const pug = require('pug');
 const fs = require('fs');
-const moment = require('moment');
+const dayjs = require('dayjs');
 const puppeteer = require('puppeteer');
 const { listAllSettings, loadSettings } = require('@/middlewares/settings');
 const { getData } = require('@/middlewares/serverData');
@@ -64,7 +64,7 @@ exports.generatePdf = async (
         translate,
         dateFormat,
         moneyFormatter,
-        moment: moment,
+        dayjs: dayjs,
       });
 
       const browser = await puppeteer.launch({
