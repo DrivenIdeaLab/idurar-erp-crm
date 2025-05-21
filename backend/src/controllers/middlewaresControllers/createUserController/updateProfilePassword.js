@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const bcrypt = require('bcryptjs');
 
-const { generate: uniqueId } = require('shortid');
+const { nanoid: uniqueId } = require('nanoid');
 
 const updateProfilePassword = async (userModel, req, res) => {
   const UserPassword = mongoose.model(userModel + 'Password');
