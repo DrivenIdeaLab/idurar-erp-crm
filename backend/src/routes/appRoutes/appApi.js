@@ -63,6 +63,23 @@ const routerApp = (entity, controller) => {
   if (entity === 'supplier') {
     router.route(`/${entity}/performance/:id`).get(catchErrors(controller['performance']));
   }
+
+  if (entity === 'timeentry') {
+    router.route(`/${entity}/clock-in`).post(catchErrors(controller['clockIn']));
+    router.route(`/${entity}/clock-out`).post(catchErrors(controller['clockOut']));
+    router.route(`/${entity}/approve/:id`).post(catchErrors(controller['approve']));
+    router.route(`/${entity}/calculate-hours`).get(catchErrors(controller['calculateHours']));
+  }
+
+  if (entity === 'certification') {
+    router.route(`/${entity}/expiring`).get(catchErrors(controller['expiring']));
+    router.route(`/${entity}/renew/:id`).post(catchErrors(controller['renew']));
+  }
+
+  if (entity === 'employee') {
+    router.route(`/${entity}/performance/:id`).get(catchErrors(controller['performance']));
+    router.route(`/${entity}/update-performance/:id`).post(catchErrors(controller['updatePerformance']));
+  }
 };
 
 routesList.forEach(({ entity, controllerName }) => {

@@ -34,6 +34,9 @@ import {
   InboxOutlined,
   ShoppingCartOutlined,
   TeamOutlined,
+  IdcardOutlined,
+  ClockCircleOutlined,
+  SafetyCertificateOutlined,
 } from '@ant-design/icons';
 
 const { Sider } = Layout;
@@ -106,6 +109,21 @@ function Sidebar({ collapsible, isMobile = false }) {
       key: 'inventorytransaction',
       icon: <InboxOutlined />,
       label: <Link to={'/inventorytransaction'}>{translate('inventory_transaction')}</Link>,
+    },
+    {
+      key: 'employee',
+      icon: <IdcardOutlined />,
+      label: <Link to={'/employee'}>{translate('employee')}</Link>,
+    },
+    {
+      key: 'timeentry',
+      icon: <ClockCircleOutlined />,
+      label: <Link to={'/timeentry'}>{translate('time_entry')}</Link>,
+    },
+    {
+      key: 'certification',
+      icon: <SafetyCertificateOutlined />,
+      label: <Link to={'/certification'}>{translate('certification')}</Link>,
     },
 
     {

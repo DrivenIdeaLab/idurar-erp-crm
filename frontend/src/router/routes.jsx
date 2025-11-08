@@ -15,6 +15,9 @@ const Part = lazy(() => import('@/pages/Part'));
 const Supplier = lazy(() => import('@/pages/Supplier'));
 const PurchaseOrder = lazy(() => import('@/pages/PurchaseOrder'));
 const InventoryTransaction = lazy(() => import('@/pages/InventoryTransaction'));
+const Employee = lazy(() => import('@/pages/Employee'));
+const TimeEntry = lazy(() => import('@/pages/TimeEntry'));
+const Certification = lazy(() => import('@/pages/Certification'));
 const Invoice = lazy(() => import('@/pages/Invoice'));
 const InvoiceCreate = lazy(() => import('@/pages/Invoice/InvoiceCreate'));
 
@@ -91,6 +94,18 @@ let routes = {
     {
       path: '/inventorytransaction',
       element: <InventoryTransaction />,
+    },
+    {
+      path: '/employee',
+      element: <Employee />,
+    },
+    {
+      path: '/timeentry',
+      element: <TimeEntry />,
+    },
+    {
+      path: '/certification',
+      element: <Certification />,
     },
 
     {

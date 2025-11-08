@@ -2394,6 +2394,136 @@ Authorization: Bearer <token>
 }
 ```
 
+## Employee API
+
+The Employee API provides endpoints for managing employee records and HR data.
+
+### Clock In
+
+**Endpoint:** `POST /api/timeentry/clock-in`
+
+**Request Body:**
+```json
+{
+  "employee": "507f191e810c19729de860ea",
+  "pin": "1234",
+  "scheduledShiftStart": "2024-01-25T08:00:00.000Z"
+}
+```
+
+**Response:**
+```json
+{
+  "success": true,
+  "result": {
+    "timeEntry": {
+      "_id": "507f191e810c19729de860ea",
+      "employee": {...},
+      "entryType": "clock_in",
+      "timestamp": "2024-01-25T08:05:00.000Z",
+      "isLate": true,
+      "lateMinutes": 5
+    }
+  },
+  "message": "Clocked in successfully at 8:05 AM"
+}
+```
+
+### Clock Out
+
+**Endpoint:** `POST /api/timeentry/clock-out`
+
+**Response:**
+```json
+{
+  "success": true,
+  "result": {
+    "timeEntry": {
+      "hoursWorked": 8.5,
+      "regularHours": 8,
+      "overtimeHours": 0.5
+    }
+  },
+  "message": "Clocked out successfully. Hours worked: 8.5"
+}
+```
+
+### Calculate Hours
+
+**Endpoint:** `GET /api/timeentry/calculate-hours?employee=ID&startDate=2024-01-01&endDate=2024-01-31`
+
+**Response:**
+```json
+{
+  "success": true,
+  "result": {
+    "hours": {
+      "totalHours": 160.5,
+      "regularHours": 152,
+      "overtimeHours": 8.5
+    },
+    "estimatedPay": 3250.00
+  }
+}
+```
+
+## Certification API
+
+### Get Expiring Certifications
+
+**Endpoint:** `GET /api/certification/expiring?days=30`
+
+**Response:**
+```json
+{
+  "success": true,
+  "result": {
+    "summary": {
+      "totalExpiring": 15,
+      "urgent": 3,
+      "warning": 5,
+      "normal": 7
+    },
+    "urgent": [...],
+    "warning": [...]
+  }
+}
+```
+
+### Renew Certification
+
+**Endpoint:** `POST /api/certification/renew/:id`
+
+**Request Body:**
+```json
+{
+  "newExpiryDate": "2025-12-31",
+  "notes": "Renewed ASE A5 certification"
+}
+```
+
+## Employee Performance API
+
+### Get Performance Metrics
+
+**Endpoint:** `GET /api/employee/performance/:id`
+
+**Response:**
+```json
+{
+  "success": true,
+  "result": {
+    "metrics": {
+      "jobsCompleted": 245,
+      "totalRevenue": 125430.00,
+      "efficiencyRate": 98.5,
+      "customerSatisfaction": 4.8,
+      "reworkPercentage": 2.3
+    }
+  }
+}
+```
+
 ## Best Practices
 
 1. **Always include error handling** in your API calls
