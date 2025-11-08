@@ -87,4 +87,10 @@ routesList.forEach(({ entity, controllerName }) => {
   routerApp(entity, controller);
 });
 
+// Analytics routes
+const analyticsController = require('@/controllers/appControllers/analyticsController');
+router.route('/analytics/executive-dashboard').get(catchErrors(analyticsController.executiveDashboard));
+router.route('/analytics/advisor-dashboard').get(catchErrors(analyticsController.serviceAdvisorDashboard));
+router.route('/analytics/financial-report').get(catchErrors(analyticsController.financialReport));
+
 module.exports = router;

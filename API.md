@@ -2524,6 +2524,98 @@ The Employee API provides endpoints for managing employee records and HR data.
 }
 ```
 
+## Analytics & Reporting API
+
+### Executive Dashboard
+
+**Endpoint:** `GET /api/analytics/executive-dashboard?startDate=2024-01-01&endDate=2024-01-31`
+
+**Response:**
+```json
+{
+  "success": true,
+  "result": {
+    "revenue": {
+      "total": 125430.00,
+      "paid": 98500.00,
+      "invoiceCount": 87,
+      "trend": [...]
+    },
+    "customers": {
+      "total": 350,
+      "new": 25,
+      "growth": 7.14
+    },
+    "services": {
+      "stats": [...],
+      "topServices": [...]
+    },
+    "inventory": {
+      "value": {...},
+      "lowStockCount": 15
+    }
+  }
+}
+```
+
+### Service Advisor Dashboard
+
+**Endpoint:** `GET /api/analytics/advisor-dashboard?advisorId=ID`
+
+**Response:**
+```json
+{
+  "success": true,
+  "result": {
+    "todayAppointments": {
+      "count": 8,
+      "appointments": [...]
+    },
+    "pendingApprovals": {
+      "count": 5,
+      "items": [...]
+    },
+    "todaySales": {
+      "totalSales": 2430.00,
+      "count": 6
+    },
+    "weeklyStats": {
+      "totalServices": 42,
+      "totalRevenue": 15240.00
+    }
+  }
+}
+```
+
+### Financial Report
+
+**Endpoint:** `GET /api/analytics/financial-report?startDate=2024-01-01&endDate=2024-01-31`
+
+**Response:**
+```json
+{
+  "success": true,
+  "result": {
+    "revenue": {
+      "totalInvoiced": 125430.00,
+      "totalPaid": 98500.00,
+      "taxCollected": 8450.00
+    },
+    "revenueByCategory": {
+      "laborRevenue": 75200.00,
+      "partsRevenue": 42300.00
+    },
+    "profitLoss": {
+      "revenue": 98500.00,
+      "expenses": 42300.00,
+      "grossProfit": 56200.00,
+      "profitMargin": 57.06
+    },
+    "arAging": [...]
+  }
+}
+```
+
 ## Best Practices
 
 1. **Always include error handling** in your API calls
