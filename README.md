@@ -50,6 +50,18 @@ IDURAR is a modern, open-source ERP/CRM solution designed for small to medium-si
 - **AI-Ready**: OpenAI integration for intelligent features
 - **Production-Ready**: Includes rate limiting, compression, and security best practices
 
+### Industry-Specific Solutions
+
+IDURAR's flexible architecture makes it ideal for various industries:
+
+- **🚗 Automotive Workshops**: See our [Automotive Workshop Implementation Guide](AUTOMOTIVE-WORKSHOP-GUIDE.md) for a complete blueprint to extend IDURAR with vehicle management, service records, appointments, parts inventory, and technician scheduling
+- **🏗️ Construction & Contractors**: Adapt for project management, equipment tracking, and job costing
+- **🏥 Healthcare Services**: Customize for patient management, appointments, and billing
+- **🎓 Educational Institutions**: Modify for student records, course management, and fee collection
+- **🏪 Retail & E-commerce**: Extend with inventory management and POS integration
+
+The automotive workshop guide provides a detailed 12-week implementation roadmap with ready-to-use data models, API specifications, and React components.
+
 ## Features
 
 ### Invoice Management
@@ -484,6 +496,7 @@ Before contributing, please read our **[Code of Conduct](CODE-OF-CONDUCT.md)** a
 
 ## Documentation
 
+### Core Documentation
 - **[README.md](README.md)** - Project overview and quick start (this file)
 - **[INSTALLATION-INSTRUCTIONS.md](INSTALLATION-INSTRUCTIONS.md)** - Detailed installation guide
 - **[API.md](API.md)** - Complete REST API documentation
@@ -493,6 +506,9 @@ Before contributing, please read our **[Code of Conduct](CODE-OF-CONDUCT.md)** a
 - **[CODE-OF-CONDUCT.md](CODE-OF-CONDUCT.md)** - Community code of conduct
 - **[SECURITY.md](SECURITY.md)** - Security policy and vulnerability reporting
 - **[doc/](doc/)** - Feature documentation in 40+ languages
+
+### Industry-Specific Guides
+- **[AUTOMOTIVE-WORKSHOP-GUIDE.md](AUTOMOTIVE-WORKSHOP-GUIDE.md)** - Complete implementation guide for automotive workshops with vehicle management, service records, appointments, parts inventory, and technician scheduling
 
 ## Deployment
 
