@@ -23,6 +23,11 @@ const routerApp = (entity, controller) => {
   if (entity === 'quote') {
     router.route(`/${entity}/convert/:id`).get(catchErrors(controller['convert']));
   }
+
+  if (entity === 'vehicle') {
+    router.route(`/${entity}/decode-vin`).post(catchErrors(controller['decodeVin']));
+    router.route(`/${entity}/update-mileage/:id`).post(catchErrors(controller['updateMileage']));
+  }
 };
 
 routesList.forEach(({ entity, controllerName }) => {

@@ -11,6 +11,7 @@ This document provides comprehensive documentation for the IDURAR ERP/CRM REST A
 - [Quote API](#quote-api)
 - [Payment API](#payment-api)
 - [Client API](#client-api)
+- [Vehicle API](#vehicle-api)
 - [Admin API](#admin-api)
 - [Settings API](#settings-api)
 - [Tax API](#tax-api)
@@ -583,6 +584,391 @@ Content-Type: application/json
 ### Delete Client
 
 **Endpoint:** `DELETE /api/client/:id`
+
+## Vehicle API
+
+The Vehicle API provides endpoints for managing vehicles in the automotive workshop system, including VIN decoding capabilities.
+
+### List Vehicles
+
+**Endpoint:** `GET /api/vehicle`
+
+**Query Parameters:**
+- `page` (number) - Page number for pagination
+- `items` (number) - Number of items per page
+- `search` (string) - Search by VIN, make, model, or license plate
+
+**Headers:**
+```
+Authorization: Bearer <token>
+```
+
+**Response:**
+```json
+{
+  "success": true,
+  "result": [
+    {
+      "_id": "507f191e810c19729de860ea",
+      "vin": "1HGBH41JXMN109186",
+      "licensePlate": "ABC1234",
+      "year": 2021,
+      "make": "Honda",
+      "model": "Accord",
+      "trim": "EX-L",
+      "color": "Silver",
+      "engine": "2.0L Turbo",
+      "transmission": "Automatic",
+      "fuelType": "gasoline",
+      "currentMileage": 45000,
+      "mileageUnit": "miles",
+      "customer": {
+        "_id": "507f191e810c19729de860eb",
+        "name": "John Doe",
+        "email": "john@example.com"
+      },
+      "created": "2024-01-15T10:30:00.000Z",
+      "updated": "2024-01-20T14:45:00.000Z"
+    }
+  ],
+  "pagination": {
+    "page": 1,
+    "pages": 5,
+    "count": 47
+  }
+}
+```
+
+### Get Vehicle by ID
+
+**Endpoint:** `GET /api/vehicle/read/:id`
+
+**Headers:**
+```
+Authorization: Bearer <token>
+```
+
+**Response:**
+```json
+{
+  "success": true,
+  "result": {
+    "_id": "507f191e810c19729de860ea",
+    "vin": "1HGBH41JXMN109186",
+    "licensePlate": "ABC1234",
+    "year": 2021,
+    "make": "Honda",
+    "model": "Accord",
+    "trim": "EX-L",
+    "color": "Silver",
+    "engine": "2.0L Turbo",
+    "transmission": "Automatic",
+    "fuelType": "gasoline",
+    "currentMileage": 45000,
+    "mileageUnit": "miles",
+    "customer": {
+      "_id": "507f191e810c19729de860eb",
+      "name": "John Doe",
+      "email": "john@example.com",
+      "phone": "+1234567890"
+    },
+    "photos": [
+      {
+        "url": "/uploads/vehicles/photo1.jpg",
+        "uploadedDate": "2024-01-15T10:30:00.000Z",
+        "description": "Front view"
+      }
+    ],
+    "mileageHistory": [
+      {
+        "mileage": 45000,
+        "recordedDate": "2024-01-20T14:45:00.000Z",
+        "recordedBy": "507f1f77bcf86cd799439014"
+      }
+    ],
+    "vinDecodeData": {
+      "manufacturer": "Honda",
+      "plantCountry": "USA",
+      "vehicleType": "Passenger Car",
+      "bodyClass": "Sedan"
+    }
+  },
+  "message": "Vehicle retrieved successfully"
+}
+```
+
+### Create Vehicle
+
+**Endpoint:** `POST /api/vehicle/create`
+
+**Headers:**
+```
+Authorization: Bearer <token>
+Content-Type: application/json
+```
+
+**Request Body:**
+```json
+{
+  "vin": "1HGBH41JXMN109186",
+  "licensePlate": "ABC1234",
+  "year": 2021,
+  "make": "Honda",
+  "model": "Accord",
+  "trim": "EX-L",
+  "color": "Silver",
+  "engine": "2.0L Turbo",
+  "transmission": "Automatic",
+  "fuelType": "gasoline",
+  "customer": "507f191e810c19729de860eb",
+  "currentMileage": 45000,
+  "mileageUnit": "miles",
+  "notes": "Customer's primary vehicle"
+}
+```
+
+**Response:**
+```json
+{
+  "success": true,
+  "result": {
+    "_id": "507f191e810c19729de860ea",
+    "vin": "1HGBH41JXMN109186",
+    "make": "Honda",
+    "model": "Accord",
+    "year": 2021
+  },
+  "message": "Vehicle created successfully"
+}
+```
+
+### Update Vehicle
+
+**Endpoint:** `PATCH /api/vehicle/update/:id`
+
+**Headers:**
+```
+Authorization: Bearer <token>
+Content-Type: application/json
+```
+
+**Request Body:** Partial vehicle data (any fields to update)
+
+**Response:**
+```json
+{
+  "success": true,
+  "result": {
+    "_id": "507f191e810c19729de860ea",
+    "currentMileage": 46500
+  },
+  "message": "Vehicle updated successfully"
+}
+```
+
+### Delete Vehicle
+
+**Endpoint:** `DELETE /api/vehicle/delete/:id`
+
+**Headers:**
+```
+Authorization: Bearer <token>
+```
+
+**Response:**
+```json
+{
+  "success": true,
+  "result": {},
+  "message": "Vehicle deleted successfully"
+}
+```
+
+### Decode VIN
+
+**Endpoint:** `POST /api/vehicle/decode-vin`
+
+**Headers:**
+```
+Authorization: Bearer <token>
+Content-Type: application/json
+```
+
+**Request Body:**
+```json
+{
+  "vin": "1HGBH41JXMN109186"
+}
+```
+
+**Response (Success - VIN Decoded):**
+```json
+{
+  "success": true,
+  "result": {
+    "vin": "1HGBH41JXMN109186",
+    "exists": false,
+    "data": {
+      "year": 2021,
+      "make": "Honda",
+      "model": "Accord",
+      "trim": "EX-L",
+      "engine": "2.0L Turbo",
+      "engineCylinders": 4,
+      "engineDisplacement": "2.0L",
+      "transmission": "Automatic",
+      "fuelType": "gasoline",
+      "manufacturer": "Honda",
+      "plantCountry": "USA",
+      "vehicleType": "Passenger Car",
+      "bodyClass": "Sedan",
+      "doors": 4,
+      "driveType": "FWD"
+    }
+  },
+  "message": "VIN decoded successfully"
+}
+```
+
+**Response (Vehicle Already Exists):**
+```json
+{
+  "success": true,
+  "result": {
+    "vin": "1HGBH41JXMN109186",
+    "exists": true,
+    "vehicle": {
+      "_id": "507f191e810c19729de860ea",
+      "customer": {
+        "name": "John Doe"
+      }
+    },
+    "data": { /* decoded data */ }
+  },
+  "message": "VIN decoded successfully. Vehicle already exists in the system."
+}
+```
+
+**Response (Error - Invalid VIN):**
+```json
+{
+  "success": false,
+  "result": null,
+  "message": "VIN must be exactly 17 characters"
+}
+```
+
+### Update Vehicle Mileage
+
+**Endpoint:** `POST /api/vehicle/update-mileage/:id`
+
+**Headers:**
+```
+Authorization: Bearer <token>
+Content-Type: application/json
+```
+
+**Request Body:**
+```json
+{
+  "mileage": 46500,
+  "serviceRecordId": "507f1f77bcf86cd799439016"
+}
+```
+
+**Response:**
+```json
+{
+  "success": true,
+  "result": {
+    "_id": "507f191e810c19729de860ea",
+    "currentMileage": 46500,
+    "mileageHistory": [
+      {
+        "mileage": 46500,
+        "recordedDate": "2024-01-25T10:00:00.000Z",
+        "recordedBy": "507f1f77bcf86cd799439014",
+        "serviceRecordId": "507f1f77bcf86cd799439016"
+      }
+    ]
+  },
+  "message": "Vehicle mileage updated successfully"
+}
+```
+
+**Response (Error - Invalid Mileage):**
+```json
+{
+  "success": false,
+  "result": null,
+  "message": "New mileage (40000) cannot be less than current mileage (45000)"
+}
+```
+
+### Get Vehicle Summary
+
+**Endpoint:** `GET /api/vehicle/summary`
+
+**Query Parameters:**
+- `customer` (string) - Filter by customer ID (optional)
+
+**Headers:**
+```
+Authorization: Bearer <token>
+```
+
+**Response:**
+```json
+{
+  "success": true,
+  "result": {
+    "totalVehicles": 47,
+    "vehiclesByCustomer": [
+      {
+        "customer": {
+          "_id": "507f191e810c19729de860eb",
+          "name": "John Doe"
+        },
+        "count": 3
+      }
+    ],
+    "vehiclesByMake": [
+      {
+        "_id": "Honda",
+        "count": 12
+      },
+      {
+        "_id": "Toyota",
+        "count": 10
+      }
+    ],
+    "vehiclesByYear": [
+      {
+        "_id": 2023,
+        "count": 5
+      },
+      {
+        "_id": 2022,
+        "count": 8
+      }
+    ],
+    "recentVehicles": [
+      {
+        "_id": "507f191e810c19729de860ea",
+        "vin": "1HGBH41JXMN109186",
+        "make": "Honda",
+        "model": "Accord",
+        "year": 2021,
+        "customer": {
+          "name": "John Doe",
+          "email": "john@example.com"
+        }
+      }
+    ]
+  },
+  "message": "Vehicle summary retrieved successfully"
+}
+```
 
 ## Admin API
 
