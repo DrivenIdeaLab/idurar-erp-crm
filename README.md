@@ -509,6 +509,7 @@ Before contributing, please read our **[Code of Conduct](CODE-OF-CONDUCT.md)** a
 
 ### Industry-Specific Guides
 - **[AUTOMOTIVE-WORKSHOP-GUIDE.md](AUTOMOTIVE-WORKSHOP-GUIDE.md)** - Complete implementation guide for automotive workshops with vehicle management, service records, appointments, parts inventory, and technician scheduling
+- **[IMPLEMENTATION-PLAN.md](IMPLEMENTATION-PLAN.md)** - Detailed 12-week implementation plan with sprint breakdowns, team structure, technical setup, risk management, and deployment strategy
 
 ## Deployment
 
