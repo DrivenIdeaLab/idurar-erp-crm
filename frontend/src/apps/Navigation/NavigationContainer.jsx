@@ -27,6 +27,9 @@ import {
   WalletOutlined,
   ReconciliationOutlined,
   CarOutlined,
+  ToolOutlined,
+  CalendarOutlined,
+  CheckCircleOutlined,
 } from '@ant-design/icons';
 
 const { Sider } = Layout;
@@ -64,6 +67,21 @@ function Sidebar({ collapsible, isMobile = false }) {
       key: 'vehicle',
       icon: <CarOutlined />,
       label: <Link to={'/vehicle'}>{translate('vehicle')}</Link>,
+    },
+    {
+      key: 'servicerecord',
+      icon: <ToolOutlined />,
+      label: <Link to={'/servicerecord'}>{translate('service_record')}</Link>,
+    },
+    {
+      key: 'appointment',
+      icon: <CalendarOutlined />,
+      label: <Link to={'/appointment'}>{translate('appointment')}</Link>,
+    },
+    {
+      key: 'inspection',
+      icon: <CheckCircleOutlined />,
+      label: <Link to={'/inspection'}>{translate('inspection')}</Link>,
     },
 
     {

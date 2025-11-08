@@ -12,6 +12,9 @@ This document provides comprehensive documentation for the IDURAR ERP/CRM REST A
 - [Payment API](#payment-api)
 - [Client API](#client-api)
 - [Vehicle API](#vehicle-api)
+- [Service Record API](#service-record-api)
+- [Appointment API](#appointment-api)
+- [Inspection API](#inspection-api)
 - [Admin API](#admin-api)
 - [Settings API](#settings-api)
 - [Tax API](#tax-api)
@@ -1146,6 +1149,526 @@ When rate limit is exceeded:
 {
   "success": false,
   "message": "Too many requests, please try again later."
+}
+```
+
+## Best Practices
+
+## Service Record API
+
+The Service Record API provides endpoints for managing vehicle service records in the automotive workshop system.
+
+### List Service Records
+
+**Endpoint:** `GET /api/servicerecord/list`
+
+**Headers:**
+```
+Authorization: Bearer <token>
+```
+
+**Query Parameters:**
+- `page` (number)
+- `items` (number)
+- `search` (string)
+
+**Response:**
+```json
+{
+  "success": true,
+  "result": [
+    {
+      "_id": "507f191e810c19729de860ea",
+      "number": 1,
+      "year": 2024,
+      "customer": {
+        "name": "John Doe"
+      },
+      "vehicle": {
+        "vin": "1HGBH41JXMN109186",
+        "make": "Honda",
+        "model": "Accord"
+      },
+      "serviceType": "oil_change",
+      "status": "completed",
+      "scheduledDate": "2024-01-20T09:00:00.000Z",
+      "completionDate": "2024-01-20T10:30:00.000Z",
+      "total": 79.99
+    }
+  ]
+}
+```
+
+### Create Service Record
+
+**Endpoint:** `POST /api/servicerecord/create`
+
+**Headers:**
+```
+Authorization: Bearer <token>
+Content-Type: application/json
+```
+
+**Request Body:**
+```json
+{
+  "customer": "507f191e810c19729de860eb",
+  "vehicle": "507f191e810c19729de860ec",
+  "serviceType": "oil_change",
+  "status": "scheduled",
+  "scheduledDate": "2024-01-25T09:00:00.000Z",
+  "technician": "507f191e810c19729de860ed",
+  "advisor": "507f191e810c19729de860ee",
+  "customerConcerns": "Engine making strange noise",
+  "mileageIn": 45000,
+  "taxRate": 8.5
+}
+```
+
+**Response:**
+```json
+{
+  "success": true,
+  "result": {
+    "_id": "507f191e810c19729de860ea",
+    "number": 2,
+    "year": 2024
+  },
+  "message": "Service record created successfully"
+}
+```
+
+### Convert Service Record to Invoice
+
+**Endpoint:** `POST /api/servicerecord/convert-to-invoice/:id`
+
+**Headers:**
+```
+Authorization: Bearer <token>
+```
+
+**Response:**
+```json
+{
+  "success": true,
+  "result": {
+    "invoice": {
+      "_id": "507f1f77bcf86cd799439012",
+      "number": 15,
+      "year": 2024,
+      "total": 450.75
+    },
+    "serviceRecord": {
+      "_id": "507f191e810c19729de860ea",
+      "number": 2,
+      "status": "invoiced"
+    }
+  },
+  "message": "Service record converted to invoice successfully"
+}
+```
+
+### Update Service Record Status
+
+**Endpoint:** `POST /api/servicerecord/update-status/:id`
+
+**Headers:**
+```
+Authorization: Bearer <token>
+Content-Type: application/json
+```
+
+**Request Body:**
+```json
+{
+  "status": "in_progress"
+}
+```
+
+**Response:**
+```json
+{
+  "success": true,
+  "result": {
+    "_id": "507f191e810c19729de860ea",
+    "status": "in_progress",
+    "checkInDate": "2024-01-25T09:15:00.000Z"
+  },
+  "message": "Service record status updated successfully"
+}
+```
+
+### Get Service Record Summary
+
+**Endpoint:** `GET /api/servicerecord/summary`
+
+**Query Parameters:**
+- `vehicle` (string) - Filter by vehicle ID
+- `customer` (string) - Filter by customer ID
+- `startDate` (date)
+- `endDate` (date)
+
+**Headers:**
+```
+Authorization: Bearer <token>
+```
+
+**Response:**
+```json
+{
+  "success": true,
+  "result": {
+    "totalServices": 156,
+    "servicesByStatus": [
+      { "_id": "completed", "count": 98, "totalRevenue": 45230.50 },
+      { "_id": "in_progress", "count": 12 }
+    ],
+    "servicesByType": [
+      { "_id": "oil_change", "count": 45, "averageCost": 65.50 },
+      { "_id": "brake_service", "count": 23, "averageCost": 350.00 }
+    ],
+    "revenueByMonth": [
+      { "_id": { "year": 2024, "month": 1 }, "revenue": 12450.00, "count": 42 }
+    ],
+    "topTechnicians": [
+      {
+        "technician": { "name": "Mike Johnson" },
+        "servicesCompleted": 35,
+        "totalRevenue": 15230.00
+      }
+    ],
+    "averageServiceTimeHours": 2.5
+  },
+  "message": "Service record summary retrieved successfully"
+}
+```
+
+## Appointment API
+
+The Appointment API provides endpoints for managing service appointments.
+
+### List Appointments
+
+**Endpoint:** `GET /api/appointment/list`
+
+**Headers:**
+```
+Authorization: Bearer <token>
+```
+
+**Response:**
+```json
+{
+  "success": true,
+  "result": [
+    {
+      "_id": "507f191e810c19729de860ea",
+      "customer": {
+        "name": "John Doe",
+        "phone": "+1234567890"
+      },
+      "vehicle": {
+        "vin": "1HGBH41JXMN109186",
+        "make": "Honda",
+        "model": "Accord"
+      },
+      "appointmentDate": "2024-01-25T00:00:00.000Z",
+      "appointmentTime": "09:00",
+      "duration": 60,
+      "serviceType": "oil_change",
+      "status": "confirmed",
+      "estimatedCost": 65.00
+    }
+  ]
+}
+```
+
+### Create Appointment
+
+**Endpoint:** `POST /api/appointment/create`
+
+**Headers:**
+```
+Authorization: Bearer <token>
+Content-Type: application/json
+```
+
+**Request Body:**
+```json
+{
+  "customer": "507f191e810c19729de860eb",
+  "vehicle": "507f191e810c19729de860ec",
+  "appointmentDate": "2024-01-30",
+  "appointmentTime": "14:00",
+  "duration": 120,
+  "serviceType": "brake_service",
+  "technician": "507f191e810c19729de860ed",
+  "customerConcerns": "Brakes squeaking",
+  "contactPhone": "+1234567890",
+  "contactEmail": "john@example.com",
+  "estimatedCost": 350.00
+}
+```
+
+**Response:**
+```json
+{
+  "success": true,
+  "result": {
+    "_id": "507f191e810c19729de860ea",
+    "appointmentDate": "2024-01-30T00:00:00.000Z",
+    "appointmentTime": "14:00",
+    "status": "scheduled"
+  },
+  "message": "Appointment created successfully"
+}
+```
+
+### Check Appointment Availability
+
+**Endpoint:** `GET /api/appointment/check-availability`
+
+**Query Parameters:**
+- `date` (date) - Required (YYYY-MM-DD)
+- `time` (string) - Required (HH:MM)
+- `duration` (number) - Optional (default 60)
+- `technician` (string) - Optional technician ID
+
+**Headers:**
+```
+Authorization: Bearer <token>
+```
+
+**Response:**
+```json
+{
+  "success": true,
+  "result": {
+    "isAvailable": true,
+    "conflicts": 0,
+    "requestedDate": "2024-01-30",
+    "requestedTime": "14:00",
+    "existingAppointments": [
+      {
+        "time": "09:00",
+        "duration": 60
+      },
+      {
+        "time": "11:00",
+        "duration": 90
+      }
+    ]
+  },
+  "message": "Time slot is available"
+}
+```
+
+### Create Service Record from Appointment
+
+**Endpoint:** `POST /api/appointment/create-service-record/:id`
+
+**Headers:**
+```
+Authorization: Bearer <token>
+```
+
+**Response:**
+```json
+{
+  "success": true,
+  "result": {
+    "serviceRecord": {
+      "_id": "507f191e810c19729de860ef",
+      "number": 5,
+      "year": 2024,
+      "status": "checked_in"
+    },
+    "appointment": {
+      "_id": "507f191e810c19729de860ea",
+      "status": "in_service"
+    }
+  },
+  "message": "Service record created successfully"
+}
+```
+
+### Get Appointment Summary
+
+**Endpoint:** `GET /api/appointment/summary`
+
+**Query Parameters:**
+- `startDate` (date)
+- `endDate` (date)
+
+**Headers:**
+```
+Authorization: Bearer <token>
+```
+
+**Response:**
+```json
+{
+  "success": true,
+  "result": {
+    "totalAppointments": 87,
+    "appointmentsByStatus": [
+      { "_id": "scheduled", "count": 25 },
+      { "_id": "confirmed", "count": 18 }
+    ],
+    "appointmentsByType": [
+      { "_id": "oil_change", "count": 32 },
+      { "_id": "brake_service", "count": 15 }
+    ],
+    "upcomingAppointments": [ /* next 7 days */ ],
+    "todaysAppointments": [ /* today's schedule */ ],
+    "noShowRate": 5.2
+  },
+  "message": "Appointment summary retrieved successfully"
+}
+```
+
+## Inspection API
+
+The Inspection API provides endpoints for managing vehicle inspections.
+
+### List Inspections
+
+**Endpoint:** `GET /api/inspection/list`
+
+**Headers:**
+```
+Authorization: Bearer <token>
+```
+
+**Response:**
+```json
+{
+  "success": true,
+  "result": [
+    {
+      "_id": "507f191e810c19729de860ea",
+      "serviceRecord": {
+        "number": 5,
+        "year": 2024
+      },
+      "vehicle": {
+        "vin": "1HGBH41JXMN109186",
+        "make": "Honda",
+        "model": "Accord"
+      },
+      "customer": {
+        "name": "John Doe"
+      },
+      "inspector": {
+        "name": "Mike Johnson"
+      },
+      "inspectionDate": "2024-01-25T10:00:00.000Z",
+      "mileage": 45150,
+      "overallCondition": "good",
+      "customerApproval": "approved"
+    }
+  ]
+}
+```
+
+### Create Inspection
+
+**Endpoint:** `POST /api/inspection/create`
+
+**Headers:**
+```
+Authorization: Bearer <token>
+Content-Type: application/json
+```
+
+**Request Body:**
+```json
+{
+  "serviceRecord": "507f191e810c19729de860ef",
+  "vehicle": "507f191e810c19729de860ec",
+  "customer": "507f191e810c19729de860eb",
+  "inspector": "507f191e810c19729de860ed",
+  "mileage": 45150,
+  "overallCondition": "good",
+  "items": [
+    {
+      "category": "brakes",
+      "itemName": "Front Brake Pads",
+      "condition": "fair",
+      "notes": "40% remaining",
+      "recommendedAction": "Replace within 5,000 miles",
+      "priority": "medium",
+      "estimatedCost": 250.00
+    },
+    {
+      "category": "tires",
+      "itemName": "Front Tires",
+      "condition": "good",
+      "notes": "Tread depth 7/32\"",
+      "priority": "low"
+    }
+  ],
+  "safetyIssues": [
+    {
+      "description": "Brake fluid low",
+      "severity": "medium",
+      "recommendedAction": "Top off brake fluid"
+    }
+  ],
+  "recommendations": "Replace brake pads soon. All fluids checked and topped off.",
+  "nextServiceDue": "2024-04-25",
+  "nextServiceMileage": 48000
+}
+```
+
+**Response:**
+```json
+{
+  "success": true,
+  "result": {
+    "_id": "507f191e810c19729de860ea",
+    "inspectionDate": "2024-01-25T10:00:00.000Z",
+    "overallCondition": "good"
+  },
+  "message": "Inspection created successfully"
+}
+```
+
+### Get Inspection Summary
+
+**Endpoint:** `GET /api/inspection/summary`
+
+**Query Parameters:**
+- `vehicle` (string)
+- `customer` (string)
+- `startDate` (date)
+- `endDate` (date)
+
+**Headers:**
+```
+Authorization: Bearer <token>
+```
+
+**Response:**
+```json
+{
+  "success": true,
+  "result": {
+    "totalInspections": 125,
+    "byCondition": [
+      { "_id": "good", "count": 67 },
+      { "_id": "fair", "count": 45 },
+      { "_id": "poor", "count": 13 }
+    ],
+    "bySafetySeverity": [
+      { "_id": "low", "count": 34 },
+      { "_id": "medium", "count": 18 },
+      { "_id": "high", "count": 5 }
+    ],
+    "approvalRate": 78.5,
+    "recentInspections": [ /* last 10 */ ]
+  },
+  "message": "Inspection summary retrieved successfully"
 }
 ```
 

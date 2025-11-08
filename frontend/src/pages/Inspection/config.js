@@ -1,0 +1,80 @@
+export const fields = {
+  serviceRecord: {
+    type: 'async',
+    label: 'Service Record',
+    required: true,
+    entity: 'servicerecord',
+    displayLabels: ['number'],
+    dataIndex: ['number'],
+    searchFields: 'number',
+  },
+  vehicle: {
+    type: 'async',
+    label: 'Vehicle',
+    required: true,
+    entity: 'vehicle',
+    displayLabels: ['vin', 'make', 'model'],
+    dataIndex: ['vin'],
+    searchFields: 'vin,make,model',
+  },
+  customer: {
+    type: 'async',
+    label: 'Customer',
+    required: true,
+    entity: 'client',
+    displayLabels: ['name'],
+    dataIndex: ['name'],
+    searchFields: 'name,email',
+  },
+  inspector: {
+    type: 'async',
+    label: 'Inspector',
+    required: true,
+    entity: 'admin',
+    displayLabels: ['name'],
+    dataIndex: ['name'],
+    searchFields: 'name,email',
+  },
+  inspectionDate: {
+    type: 'date',
+    label: 'Inspection Date',
+    default: new Date(),
+  },
+  mileage: {
+    type: 'number',
+    label: 'Mileage',
+  },
+  overallCondition: {
+    type: 'select',
+    label: 'Overall Condition',
+    options: [
+      { value: 'excellent', label: 'Excellent' },
+      { value: 'good', label: 'Good' },
+      { value: 'fair', label: 'Fair' },
+      { value: 'poor', label: 'Poor' },
+    ],
+  },
+  recommendations: {
+    type: 'textarea',
+    label: 'Recommendations',
+  },
+  nextServiceDue: {
+    type: 'date',
+    label: 'Next Service Due',
+  },
+  nextServiceMileage: {
+    type: 'number',
+    label: 'Next Service Mileage',
+  },
+  customerApproval: {
+    type: 'select',
+    label: 'Customer Approval',
+    options: [
+      { value: 'pending', label: 'Pending' },
+      { value: 'approved', label: 'Approved' },
+      { value: 'declined', label: 'Declined' },
+      { value: 'partial', label: 'Partial' },
+    ],
+    default: 'pending',
+  },
+};

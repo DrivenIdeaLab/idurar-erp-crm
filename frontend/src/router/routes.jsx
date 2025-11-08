@@ -8,6 +8,9 @@ const NotFound = lazy(() => import('@/pages/NotFound.jsx'));
 const Dashboard = lazy(() => import('@/pages/Dashboard'));
 const Customer = lazy(() => import('@/pages/Customer'));
 const Vehicle = lazy(() => import('@/pages/Vehicle'));
+const ServiceRecord = lazy(() => import('@/pages/ServiceRecord'));
+const Appointment = lazy(() => import('@/pages/Appointment'));
+const Inspection = lazy(() => import('@/pages/Inspection'));
 const Invoice = lazy(() => import('@/pages/Invoice'));
 const InvoiceCreate = lazy(() => import('@/pages/Invoice/InvoiceCreate'));
 
@@ -56,6 +59,18 @@ let routes = {
     {
       path: '/vehicle',
       element: <Vehicle />,
+    },
+    {
+      path: '/servicerecord',
+      element: <ServiceRecord />,
+    },
+    {
+      path: '/appointment',
+      element: <Appointment />,
+    },
+    {
+      path: '/inspection',
+      element: <Inspection />,
     },
 
     {

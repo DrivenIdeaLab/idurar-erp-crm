@@ -28,6 +28,20 @@ const routerApp = (entity, controller) => {
     router.route(`/${entity}/decode-vin`).post(catchErrors(controller['decodeVin']));
     router.route(`/${entity}/update-mileage/:id`).post(catchErrors(controller['updateMileage']));
   }
+
+  if (entity === 'servicerecord') {
+    router
+      .route(`/${entity}/convert-to-invoice/:id`)
+      .post(catchErrors(controller['convertToInvoice']));
+    router.route(`/${entity}/update-status/:id`).post(catchErrors(controller['updateStatus']));
+  }
+
+  if (entity === 'appointment') {
+    router.route(`/${entity}/check-availability`).get(catchErrors(controller['checkAvailability']));
+    router
+      .route(`/${entity}/create-service-record/:id`)
+      .post(catchErrors(controller['createServiceRecord']));
+  }
 };
 
 routesList.forEach(({ entity, controllerName }) => {
