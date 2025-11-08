@@ -15,6 +15,10 @@ This document provides comprehensive documentation for the IDURAR ERP/CRM REST A
 - [Service Record API](#service-record-api)
 - [Appointment API](#appointment-api)
 - [Inspection API](#inspection-api)
+- [Part API](#part-api)
+- [Inventory Transaction API](#inventory-transaction-api)
+- [Purchase Order API](#purchase-order-api)
+- [Supplier API](#supplier-api)
 - [Admin API](#admin-api)
 - [Settings API](#settings-api)
 - [Tax API](#tax-api)
@@ -1669,6 +1673,724 @@ Authorization: Bearer <token>
     "recentInspections": [ /* last 10 */ ]
   },
   "message": "Inspection summary retrieved successfully"
+}
+```
+
+## Part API
+
+The Part API provides endpoints for managing parts inventory in the automotive workshop system.
+
+### List Parts
+
+**Endpoint:** `GET /api/part/list`
+
+**Headers:**
+```
+Authorization: Bearer <token>
+```
+
+**Query Parameters:**
+- `page` (number)
+- `items` (number)
+- `search` (string)
+
+**Response:**
+```json
+{
+  "success": true,
+  "result": [
+    {
+      "_id": "507f191e810c19729de860ea",
+      "partNumber": "BRK-001",
+      "name": "Front Brake Pads",
+      "category": "brakes",
+      "quantityOnHand": 25,
+      "quantityReserved": 5,
+      "quantityAvailable": 20,
+      "costPrice": 45.00,
+      "sellPrice": 89.99,
+      "reorderPoint": 10,
+      "lowStockAlert": false,
+      "outOfStock": false
+    }
+  ]
+}
+```
+
+### Create Part
+
+**Endpoint:** `POST /api/part/create`
+
+**Headers:**
+```
+Authorization: Bearer <token>
+Content-Type: application/json
+```
+
+**Request Body:**
+```json
+{
+  "partNumber": "BRK-001",
+  "name": "Front Brake Pads",
+  "description": "Ceramic front brake pads",
+  "category": "brakes",
+  "supplier": "507f191e810c19729de860eb",
+  "costPrice": 45.00,
+  "sellPrice": 89.99,
+  "quantityOnHand": 25,
+  "reorderPoint": 10,
+  "reorderQuantity": 50
+}
+```
+
+**Response:**
+```json
+{
+  "success": true,
+  "result": {
+    "_id": "507f191e810c19729de860ea",
+    "partNumber": "BRK-001",
+    "name": "Front Brake Pads"
+  },
+  "message": "Part created successfully"
+}
+```
+
+### Check Stock
+
+**Endpoint:** `GET /api/part/check-stock`
+
+**Query Parameters:**
+- `partNumber` (string) - Check specific part by number
+- `partId` (string) - Check specific part by ID
+- `threshold` (number) - Custom threshold for low stock alerts
+
+**Headers:**
+```
+Authorization: Bearer <token>
+```
+
+**Response (specific part):**
+```json
+{
+  "success": true,
+  "result": {
+    "part": {
+      "_id": "507f191e810c19729de860ea",
+      "partNumber": "BRK-001",
+      "name": "Front Brake Pads",
+      "quantityOnHand": 25,
+      "quantityReserved": 5,
+      "quantityAvailable": 20,
+      "reorderPoint": 10,
+      "lowStockAlert": false,
+      "outOfStock": false
+    },
+    "status": "in_stock"
+  },
+  "message": "Stock level retrieved successfully"
+}
+```
+
+**Response (all alerts):**
+```json
+{
+  "success": true,
+  "result": {
+    "totalAlerts": 15,
+    "outOfStock": {
+      "count": 3,
+      "parts": [...]
+    },
+    "lowStock": {
+      "count": 12,
+      "parts": [...]
+    }
+  },
+  "message": "Stock alerts retrieved successfully"
+}
+```
+
+### Adjust Stock
+
+**Endpoint:** `POST /api/part/adjust-stock/:id`
+
+**Headers:**
+```
+Authorization: Bearer <token>
+Content-Type: application/json
+```
+
+**Request Body:**
+```json
+{
+  "adjustment": 10,
+  "type": "adjustment",
+  "reason": "Manual stock adjustment",
+  "notes": "Correcting inventory count"
+}
+```
+
+**Response:**
+```json
+{
+  "success": true,
+  "result": {
+    "part": {
+      "_id": "507f191e810c19729de860ea",
+      "partNumber": "BRK-001",
+      "name": "Front Brake Pads",
+      "quantityBefore": 25,
+      "quantityAfter": 35,
+      "adjustment": 10
+    },
+    "transaction": {
+      "_id": "507f1f77bcf86cd799439012",
+      "type": "adjustment",
+      "quantityChange": 10
+    }
+  },
+  "message": "Stock adjusted successfully"
+}
+```
+
+### Get Reorder Suggestions
+
+**Endpoint:** `GET /api/part/reorder`
+
+**Query Parameters:**
+- `category` (string)
+- `supplier` (string)
+
+**Headers:**
+```
+Authorization: Bearer <token>
+```
+
+**Response:**
+```json
+{
+  "success": true,
+  "result": {
+    "summary": {
+      "totalParts": 25,
+      "totalEstimatedCost": 5430.00,
+      "totalSuppliers": 5,
+      "outOfStock": 3,
+      "lowStock": 22
+    },
+    "bySupplier": [
+      {
+        "supplier": {
+          "companyName": "AutoParts Inc"
+        },
+        "parts": [...],
+        "totalCost": 2150.00,
+        "totalParts": 10
+      }
+    ]
+  },
+  "message": "Reorder suggestions retrieved successfully"
+}
+```
+
+### Get Part Summary
+
+**Endpoint:** `GET /api/part/summary`
+
+**Query Parameters:**
+- `category` (string)
+- `supplier` (string)
+
+**Headers:**
+```
+Authorization: Bearer <token>
+```
+
+**Response:**
+```json
+{
+  "success": true,
+  "result": {
+    "overview": {
+      "totalParts": 350,
+      "activeParts": 320,
+      "discontinuedParts": 30,
+      "inStock": 280,
+      "lowStock": 35,
+      "outOfStock": 5
+    },
+    "inventoryValue": {
+      "totalCostValue": 125430.00,
+      "totalSellValue": 245680.00,
+      "totalPotentialProfit": 120250.00
+    },
+    "partsByCategory": [...],
+    "topPartsByQuantity": [...],
+    "lowStockAlerts": [...]
+  },
+  "message": "Part inventory summary retrieved successfully"
+}
+```
+
+## Inventory Transaction API
+
+The Inventory Transaction API provides endpoints for tracking all inventory movements.
+
+### List Transactions
+
+**Endpoint:** `GET /api/inventorytransaction/list`
+
+**Headers:**
+```
+Authorization: Bearer <token>
+```
+
+**Response:**
+```json
+{
+  "success": true,
+  "result": [
+    {
+      "_id": "507f191e810c19729de860ea",
+      "part": {
+        "partNumber": "BRK-001",
+        "name": "Front Brake Pads"
+      },
+      "type": "purchase",
+      "quantityChange": 50,
+      "quantityBefore": 25,
+      "quantityAfter": 75,
+      "unitCost": 45.00,
+      "totalCost": 2250.00,
+      "transactionDate": "2024-01-25T10:00:00.000Z"
+    }
+  ]
+}
+```
+
+### Record Transaction
+
+**Endpoint:** `POST /api/inventorytransaction/record-transaction`
+
+**Headers:**
+```
+Authorization: Bearer <token>
+Content-Type: application/json
+```
+
+**Request Body:**
+```json
+{
+  "part": "507f191e810c19729de860ea",
+  "type": "sale",
+  "quantityChange": 2,
+  "unitPrice": 89.99,
+  "serviceRecord": "507f191e810c19729de860ec",
+  "notes": "Used in service #SR-2024-0015"
+}
+```
+
+**Response:**
+```json
+{
+  "success": true,
+  "result": {
+    "transaction": {
+      "_id": "507f1f77bcf86cd799439012",
+      "type": "sale",
+      "quantityChange": -2,
+      "transactionDate": "2024-01-25T10:00:00.000Z"
+    },
+    "part": {
+      "_id": "507f191e810c19729de860ea",
+      "quantityBefore": 25,
+      "quantityAfter": 23
+    }
+  },
+  "message": "Transaction recorded successfully"
+}
+```
+
+### Get Transaction Summary
+
+**Endpoint:** `GET /api/inventorytransaction/summary`
+
+**Query Parameters:**
+- `part` (string)
+- `type` (string)
+- `startDate` (date)
+- `endDate` (date)
+
+**Headers:**
+```
+Authorization: Bearer <token>
+```
+
+**Response:**
+```json
+{
+  "success": true,
+  "result": {
+    "overview": {
+      "totalTransactions": 1250,
+      "totalCost": 85430.00,
+      "totalPrice": 165890.00,
+      "totalQuantityIn": 3250,
+      "totalQuantityOut": 2890
+    },
+    "transactionsByType": [...],
+    "transactionsByPart": [...],
+    "recentTransactions": [...]
+  },
+  "message": "Inventory transaction summary retrieved successfully"
+}
+```
+
+## Purchase Order API
+
+The Purchase Order API provides endpoints for managing purchase orders and supplier orders.
+
+### List Purchase Orders
+
+**Endpoint:** `GET /api/purchaseorder/list`
+
+**Headers:**
+```
+Authorization: Bearer <token>
+```
+
+**Response:**
+```json
+{
+  "success": true,
+  "result": [
+    {
+      "_id": "507f191e810c19729de860ea",
+      "poNumber": "PO-2024-0001",
+      "supplier": {
+        "companyName": "AutoParts Inc"
+      },
+      "orderDate": "2024-01-20T00:00:00.000Z",
+      "status": "confirmed",
+      "total": 5430.00,
+      "expectedDeliveryDate": "2024-01-27T00:00:00.000Z"
+    }
+  ]
+}
+```
+
+### Create Purchase Order
+
+**Endpoint:** `POST /api/purchaseorder/create`
+
+**Headers:**
+```
+Authorization: Bearer <token>
+Content-Type: application/json
+```
+
+**Request Body:**
+```json
+{
+  "supplier": "507f191e810c19729de860eb",
+  "items": [
+    {
+      "part": "507f191e810c19729de860ea",
+      "partNumber": "BRK-001",
+      "description": "Front Brake Pads",
+      "quantityOrdered": 50,
+      "unitCost": 45.00,
+      "total": 2250.00
+    }
+  ],
+  "taxRate": 8.5,
+  "shippingCost": 25.00,
+  "expectedDeliveryDate": "2024-01-27",
+  "notes": "Rush order"
+}
+```
+
+**Response:**
+```json
+{
+  "success": true,
+  "result": {
+    "_id": "507f191e810c19729de860ea",
+    "poNumber": "PO-2024-0001",
+    "status": "draft"
+  },
+  "message": "Purchase order created successfully"
+}
+```
+
+### Receive Items
+
+**Endpoint:** `POST /api/purchaseorder/receive/:id`
+
+**Headers:**
+```
+Authorization: Bearer <token>
+Content-Type: application/json
+```
+
+**Request Body:**
+```json
+{
+  "items": [
+    {
+      "itemId": "507f1f77bcf86cd799439012",
+      "quantityReceived": 50
+    }
+  ],
+  "actualDeliveryDate": "2024-01-27",
+  "notes": "All items received in good condition"
+}
+```
+
+**Response:**
+```json
+{
+  "success": true,
+  "result": {
+    "purchaseOrder": {
+      "_id": "507f191e810c19729de860ea",
+      "poNumber": "PO-2024-0001",
+      "status": "received",
+      "items": [...]
+    },
+    "receivedItems": [...]
+  },
+  "message": "Items received successfully"
+}
+```
+
+### Update Status
+
+**Endpoint:** `POST /api/purchaseorder/update-status/:id`
+
+**Headers:**
+```
+Authorization: Bearer <token>
+Content-Type: application/json
+```
+
+**Request Body:**
+```json
+{
+  "status": "confirmed",
+  "notes": "Confirmed by supplier"
+}
+```
+
+**Response:**
+```json
+{
+  "success": true,
+  "result": {
+    "_id": "507f191e810c19729de860ea",
+    "poNumber": "PO-2024-0001",
+    "status": "confirmed",
+    "oldStatus": "sent"
+  },
+  "message": "Purchase order status updated successfully"
+}
+```
+
+### Get Purchase Order Summary
+
+**Endpoint:** `GET /api/purchaseorder/summary`
+
+**Query Parameters:**
+- `supplier` (string)
+- `status` (string)
+- `startDate` (date)
+- `endDate` (date)
+
+**Headers:**
+```
+Authorization: Bearer <token>
+```
+
+**Response:**
+```json
+{
+  "success": true,
+  "result": {
+    "overview": {
+      "totalPOs": 87,
+      "totalValue": 125430.00,
+      "totalPaid": 98500.00,
+      "totalOutstanding": 26930.00
+    },
+    "posByStatus": [...],
+    "posBySupplier": [...],
+    "pendingDeliveries": {
+      "count": 12,
+      "items": [...]
+    },
+    "overdueDeliveries": {
+      "count": 3,
+      "items": [...]
+    }
+  },
+  "message": "Purchase order summary retrieved successfully"
+}
+```
+
+## Supplier API
+
+The Supplier API provides endpoints for managing suppliers and vendor relationships.
+
+### List Suppliers
+
+**Endpoint:** `GET /api/supplier/list`
+
+**Headers:**
+```
+Authorization: Bearer <token>
+```
+
+**Response:**
+```json
+{
+  "success": true,
+  "result": [
+    {
+      "_id": "507f191e810c19729de860ea",
+      "companyName": "AutoParts Inc",
+      "contactPerson": "John Smith",
+      "email": "john@autoparts.com",
+      "phone": "+1234567890",
+      "categories": ["brakes", "suspension"],
+      "rating": 4.5,
+      "isPreferred": true,
+      "totalOrders": 45,
+      "totalSpent": 125430.00
+    }
+  ]
+}
+```
+
+### Create Supplier
+
+**Endpoint:** `POST /api/supplier/create`
+
+**Headers:**
+```
+Authorization: Bearer <token>
+Content-Type: application/json
+```
+
+**Request Body:**
+```json
+{
+  "companyName": "AutoParts Inc",
+  "tradingName": "API Auto",
+  "contactPerson": "John Smith",
+  "email": "john@autoparts.com",
+  "phone": "+1234567890",
+  "address": {
+    "street": "123 Industrial Dr",
+    "city": "Detroit",
+    "state": "MI",
+    "postcode": "48201",
+    "country": "USA"
+  },
+  "paymentTerms": "net_30",
+  "categories": ["brakes", "suspension"]
+}
+```
+
+**Response:**
+```json
+{
+  "success": true,
+  "result": {
+    "_id": "507f191e810c19729de860ea",
+    "companyName": "AutoParts Inc"
+  },
+  "message": "Supplier created successfully"
+}
+```
+
+### Get Supplier Performance
+
+**Endpoint:** `GET /api/supplier/performance/:id`
+
+**Query Parameters:**
+- `startDate` (date)
+- `endDate` (date)
+
+**Headers:**
+```
+Authorization: Bearer <token>
+```
+
+**Response:**
+```json
+{
+  "success": true,
+  "result": {
+    "supplier": {
+      "_id": "507f191e810c19729de860ea",
+      "companyName": "AutoParts Inc",
+      "rating": 4.5
+    },
+    "metrics": {
+      "totalOrders": 45,
+      "totalSpent": 125430.00,
+      "averageOrderValue": 2787.33,
+      "averageLeadTime": 5,
+      "onTimeDeliveryRate": 95.5,
+      "partsSupplied": 85
+    },
+    "ordersByStatus": {...},
+    "monthlySpending": [...],
+    "recentOrders": [...]
+  },
+  "message": "Supplier performance metrics retrieved successfully"
+}
+```
+
+### Get Supplier Summary
+
+**Endpoint:** `GET /api/supplier/summary`
+
+**Query Parameters:**
+- `category` (string)
+- `isPreferred` (boolean)
+- `isActive` (boolean)
+
+**Headers:**
+```
+Authorization: Bearer <token>
+```
+
+**Response:**
+```json
+{
+  "success": true,
+  "result": {
+    "overview": {
+      "totalSuppliers": 25,
+      "activeSuppliers": 22,
+      "preferredSuppliers": 8,
+      "totalSpending": 545230.00
+    },
+    "averageMetrics": {
+      "averageRating": 4.2,
+      "averageOnTimeDelivery": 92.5,
+      "averageLeadTime": 6
+    },
+    "topSuppliersBySpending": [...],
+    "topSuppliersByRating": [...],
+    "suppliersNeedingReview": {
+      "count": 3,
+      "items": [...]
+    }
+  },
+  "message": "Supplier summary retrieved successfully"
 }
 ```
 

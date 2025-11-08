@@ -42,6 +42,27 @@ const routerApp = (entity, controller) => {
       .route(`/${entity}/create-service-record/:id`)
       .post(catchErrors(controller['createServiceRecord']));
   }
+
+  if (entity === 'part') {
+    router.route(`/${entity}/check-stock`).get(catchErrors(controller['checkStock']));
+    router.route(`/${entity}/adjust-stock/:id`).post(catchErrors(controller['adjustStock']));
+    router.route(`/${entity}/reorder`).get(catchErrors(controller['reorder']));
+  }
+
+  if (entity === 'inventorytransaction') {
+    router
+      .route(`/${entity}/record-transaction`)
+      .post(catchErrors(controller['recordTransaction']));
+  }
+
+  if (entity === 'purchaseorder') {
+    router.route(`/${entity}/receive/:id`).post(catchErrors(controller['receive']));
+    router.route(`/${entity}/update-status/:id`).post(catchErrors(controller['updateStatus']));
+  }
+
+  if (entity === 'supplier') {
+    router.route(`/${entity}/performance/:id`).get(catchErrors(controller['performance']));
+  }
 };
 
 routesList.forEach(({ entity, controllerName }) => {

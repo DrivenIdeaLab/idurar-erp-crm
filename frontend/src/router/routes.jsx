@@ -11,6 +11,10 @@ const Vehicle = lazy(() => import('@/pages/Vehicle'));
 const ServiceRecord = lazy(() => import('@/pages/ServiceRecord'));
 const Appointment = lazy(() => import('@/pages/Appointment'));
 const Inspection = lazy(() => import('@/pages/Inspection'));
+const Part = lazy(() => import('@/pages/Part'));
+const Supplier = lazy(() => import('@/pages/Supplier'));
+const PurchaseOrder = lazy(() => import('@/pages/PurchaseOrder'));
+const InventoryTransaction = lazy(() => import('@/pages/InventoryTransaction'));
 const Invoice = lazy(() => import('@/pages/Invoice'));
 const InvoiceCreate = lazy(() => import('@/pages/Invoice/InvoiceCreate'));
 
@@ -71,6 +75,22 @@ let routes = {
     {
       path: '/inspection',
       element: <Inspection />,
+    },
+    {
+      path: '/part',
+      element: <Part />,
+    },
+    {
+      path: '/supplier',
+      element: <Supplier />,
+    },
+    {
+      path: '/purchaseorder',
+      element: <PurchaseOrder />,
+    },
+    {
+      path: '/inventorytransaction',
+      element: <InventoryTransaction />,
     },
 
     {

@@ -30,6 +30,10 @@ import {
   ToolOutlined,
   CalendarOutlined,
   CheckCircleOutlined,
+  AppstoreOutlined,
+  InboxOutlined,
+  ShoppingCartOutlined,
+  TeamOutlined,
 } from '@ant-design/icons';
 
 const { Sider } = Layout;
@@ -82,6 +86,26 @@ function Sidebar({ collapsible, isMobile = false }) {
       key: 'inspection',
       icon: <CheckCircleOutlined />,
       label: <Link to={'/inspection'}>{translate('inspection')}</Link>,
+    },
+    {
+      key: 'part',
+      icon: <AppstoreOutlined />,
+      label: <Link to={'/part'}>{translate('part')}</Link>,
+    },
+    {
+      key: 'supplier',
+      icon: <TeamOutlined />,
+      label: <Link to={'/supplier'}>{translate('supplier')}</Link>,
+    },
+    {
+      key: 'purchaseorder',
+      icon: <ShoppingCartOutlined />,
+      label: <Link to={'/purchaseorder'}>{translate('purchase_order')}</Link>,
+    },
+    {
+      key: 'inventorytransaction',
+      icon: <InboxOutlined />,
+      label: <Link to={'/inventorytransaction'}>{translate('inventory_transaction')}</Link>,
     },
 
     {
