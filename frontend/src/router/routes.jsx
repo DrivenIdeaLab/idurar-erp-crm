@@ -18,6 +18,8 @@ const InventoryTransaction = lazy(() => import('@/pages/InventoryTransaction'));
 const Employee = lazy(() => import('@/pages/Employee'));
 const TimeEntry = lazy(() => import('@/pages/TimeEntry'));
 const Certification = lazy(() => import('@/pages/Certification'));
+const Analytics = lazy(() => import('@/pages/Analytics'));
+const Reports = lazy(() => import('@/pages/Reports'));
 const Invoice = lazy(() => import('@/pages/Invoice'));
 const InvoiceCreate = lazy(() => import('@/pages/Invoice/InvoiceCreate'));
 
@@ -106,6 +108,14 @@ let routes = {
     {
       path: '/certification',
       element: <Certification />,
+    },
+    {
+      path: '/analytics',
+      element: <Analytics />,
+    },
+    {
+      path: '/reports',
+      element: <Reports />,
     },
 
     {

@@ -37,6 +37,8 @@ import {
   IdcardOutlined,
   ClockCircleOutlined,
   SafetyCertificateOutlined,
+  BarChartOutlined,
+  FileTextOutlined,
 } from '@ant-design/icons';
 
 const { Sider } = Layout;
@@ -124,6 +126,16 @@ function Sidebar({ collapsible, isMobile = false }) {
       key: 'certification',
       icon: <SafetyCertificateOutlined />,
       label: <Link to={'/certification'}>{translate('certification')}</Link>,
+    },
+    {
+      key: 'analytics',
+      icon: <BarChartOutlined />,
+      label: <Link to={'/analytics'}>{translate('analytics')}</Link>,
+    },
+    {
+      key: 'reports',
+      icon: <FileTextOutlined />,
+      label: <Link to={'/reports'}>{translate('reports')}</Link>,
     },
 
     {
