@@ -132,6 +132,10 @@ appointmentSchema.index({ customer: 1 });
 appointmentSchema.index({ vehicle: 1 });
 appointmentSchema.index({ status: 1 });
 appointmentSchema.index({ technician: 1 });
+// Compound indexes for analytics performance
+appointmentSchema.index({ removed: 1, status: 1 });
+appointmentSchema.index({ removed: 1, appointmentDate: 1 });
+appointmentSchema.index({ assignedTo: 1, removed: 1 });
 
 // Plugin for auto-populating references
 appointmentSchema.plugin(require('mongoose-autopopulate'));

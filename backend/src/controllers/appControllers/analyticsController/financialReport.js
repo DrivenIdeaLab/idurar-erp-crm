@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const { validateDateRange } = require('@/middlewares/inputValidation');
 
 /**
  * Generate financial report
@@ -8,11 +9,13 @@ const financialReport = async (req, res) => {
   try {
     const { startDate, endDate } = req.query;
 
-    if (!startDate || !endDate) {
+    // Validate date range
+    const validation = validateDateRange(startDate, endDate);
+    if (!validation.valid) {
       return res.status(400).json({
         success: false,
         result: null,
-        message: 'Start date and end date are required',
+        message: validation.errors.join(', '),
       });
     }
 

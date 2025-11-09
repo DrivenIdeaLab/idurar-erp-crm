@@ -229,6 +229,14 @@ partSchema.pre('save', function (next) {
   next();
 });
 
+// Indexes for performance optimization
+partSchema.index({ partNumber: 1 }, { unique: true });
+partSchema.index({ removed: 1, enabled: 1 });
+partSchema.index({ removed: 1, lowStockAlert: 1 });
+partSchema.index({ removed: 1, outOfStock: 1 });
+partSchema.index({ category: 1, removed: 1 });
+partSchema.index({ supplier: 1, removed: 1 });
+
 // Plugin for auto-populating references
 partSchema.plugin(require('mongoose-autopopulate'));
 

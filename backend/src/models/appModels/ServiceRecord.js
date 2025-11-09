@@ -210,6 +210,11 @@ serviceRecordSchema.index({ customer: 1 });
 serviceRecordSchema.index({ vehicle: 1 });
 serviceRecordSchema.index({ status: 1 });
 serviceRecordSchema.index({ scheduledDate: 1 });
+// Compound indexes for analytics performance
+serviceRecordSchema.index({ removed: 1, status: 1 });
+serviceRecordSchema.index({ removed: 1, created: 1 });
+serviceRecordSchema.index({ removed: 1, scheduledDate: 1 });
+serviceRecordSchema.index({ advisor: 1, removed: 1 });
 
 // Plugin for auto-populating references
 serviceRecordSchema.plugin(require('mongoose-autopopulate'));

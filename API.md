@@ -4,6 +4,7 @@ This document provides comprehensive documentation for the IDURAR ERP/CRM REST A
 
 ## Table of Contents
 
+- [Security & Performance](#security--performance)
 - [Authentication](#authentication)
 - [Common Response Formats](#common-response-formats)
 - [Error Handling](#error-handling)
@@ -19,6 +20,10 @@ This document provides comprehensive documentation for the IDURAR ERP/CRM REST A
 - [Inventory Transaction API](#inventory-transaction-api)
 - [Purchase Order API](#purchase-order-api)
 - [Supplier API](#supplier-api)
+- [Employee API](#employee-api)
+- [Time Entry API](#time-entry-api)
+- [Certification API](#certification-api)
+- [Analytics & Reporting API](#analytics--reporting-api)
 - [Admin API](#admin-api)
 - [Settings API](#settings-api)
 - [Tax API](#tax-api)
@@ -29,6 +34,61 @@ This document provides comprehensive documentation for the IDURAR ERP/CRM REST A
 ```
 Development: http://localhost:8888/api
 Production: https://your-domain.com/api
+```
+
+## Security & Performance
+
+### Rate Limiting
+
+All API endpoints are protected by rate limiting to prevent abuse:
+
+- **General API Endpoints**: 100 requests per minute
+- **Analytics Endpoints**: 20 requests per minute
+- **Authentication Endpoints**: 5 requests per 15 minutes
+
+Rate limit headers are included in all responses:
+```
+X-RateLimit-Limit: 100
+X-RateLimit-Remaining: 95
+X-RateLimit-Reset: 2025-01-09T12:00:00.000Z
+```
+
+If rate limit is exceeded, API returns HTTP 429:
+```json
+{
+  "success": false,
+  "message": "Too many requests, please try again later.",
+  "retryAfter": 60
+}
+```
+
+### Input Validation & Sanitization
+
+All user inputs are automatically sanitized to prevent:
+- XSS (Cross-Site Scripting) attacks
+- NoSQL injection
+- Prototype pollution attacks
+- HTML injection
+
+Date range parameters are validated to ensure:
+- Valid date formats
+- Start date before end date
+- Maximum range of 2 years
+
+### Performance Optimization
+
+The API includes several performance optimizations:
+
+- **Database Indexes**: All frequently queried fields have compound indexes
+- **Response Time Tracking**: All responses include `X-Response-Time` header
+- **Query Optimization**: Aggregation pipelines optimized for analytics
+- **Pagination**: Large result sets are paginated automatically
+
+Example response headers:
+```
+X-Response-Time: 45ms
+X-RateLimit-Limit: 100
+X-RateLimit-Remaining: 95
 ```
 
 ## Authentication

@@ -87,10 +87,25 @@ routesList.forEach(({ entity, controllerName }) => {
   routerApp(entity, controller);
 });
 
-// Analytics routes
+// Analytics routes with rate limiting
 const analyticsController = require('@/controllers/appControllers/analyticsController');
-router.route('/analytics/executive-dashboard').get(catchErrors(analyticsController.executiveDashboard));
-router.route('/analytics/advisor-dashboard').get(catchErrors(analyticsController.serviceAdvisorDashboard));
-router.route('/analytics/financial-report').get(catchErrors(analyticsController.financialReport));
+const { analyticsRateLimiter } = require('@/middlewares/rateLimiter');
+const { sanitizeQuery } = require('@/middlewares/inputValidation');
+
+router.route('/analytics/executive-dashboard').get(
+  analyticsRateLimiter,
+  sanitizeQuery,
+  catchErrors(analyticsController.executiveDashboard)
+);
+router.route('/analytics/advisor-dashboard').get(
+  analyticsRateLimiter,
+  sanitizeQuery,
+  catchErrors(analyticsController.serviceAdvisorDashboard)
+);
+router.route('/analytics/financial-report').get(
+  analyticsRateLimiter,
+  sanitizeQuery,
+  catchErrors(analyticsController.financialReport)
+);
 
 module.exports = router;

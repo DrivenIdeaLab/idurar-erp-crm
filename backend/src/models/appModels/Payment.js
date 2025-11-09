@@ -58,5 +58,14 @@ const paymentSchema = new mongoose.Schema({
     default: Date.now,
   },
 });
+
+// Indexes for performance optimization
+paymentSchema.index({ removed: 1, date: 1 });
+paymentSchema.index({ removed: 1, created: 1 });
+paymentSchema.index({ invoice: 1, removed: 1 });
+paymentSchema.index({ client: 1, removed: 1 });
+paymentSchema.index({ paymentMode: 1, removed: 1 });
+paymentSchema.index({ number: 1 }, { unique: true });
+
 paymentSchema.plugin(require('mongoose-autopopulate'));
 module.exports = mongoose.model('Payment', paymentSchema);
