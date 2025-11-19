@@ -1,0 +1,249 @@
+/**
+ * Button Component Styles
+ * All states and variants included
+ */
+
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-sm);
+  padding: var(--space-sm) var(--space-lg);
+  border: none;
+  border-radius: var(--radius-small);
+  font-family: var(--font-family-sans);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-semibold);
+  cursor: pointer;
+  transition: var(--transition-fast);
+  min-width: 40px;
+  height: 36px;
+  white-space: nowrap;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+/* ===== VARIANTS ===== */
+
+.variant-primary {
+  background-color: var(--color-accent-electric);
+  color: var(--color-bg-primary);
+  box-shadow: var(--shadow-depth1);
+}
+
+.variant-primary:hover:not(:disabled) {
+  background-color: #00b8d4;
+  box-shadow: var(--shadow-depth2);
+}
+
+.variant-primary:active:not(:disabled) {
+  background-color: #0099b3;
+  transform: scale(0.98);
+  box-shadow: var(--shadow-depth1);
+}
+
+.variant-primary:focus-visible {
+  outline: 2px solid var(--color-accent-electric);
+  outline-offset: 2px;
+  box-shadow: var(--shadow-focus);
+}
+
+.variant-secondary {
+  background-color: var(--color-bg-tertiary);
+  color: var(--color-text-primary);
+  border: 1px solid var(--color-border-primary);
+  box-shadow: none;
+}
+
+.variant-secondary:hover:not(:disabled) {
+  background-color: var(--color-bg-elevated);
+  border-color: var(--color-neutral-400);
+  transition: var(--transition-fast);
+}
+
+.variant-secondary:active:not(:disabled) {
+  background-color: var(--color-bg-secondary);
+  border-color: var(--color-text-secondary);
+}
+
+.variant-secondary:focus-visible {
+  outline: 2px solid var(--color-accent-electric);
+  outline-offset: 2px;
+  box-shadow: var(--shadow-focus);
+}
+
+.variant-tertiary {
+  background-color: transparent;
+  color: var(--color-accent-electric);
+  border: none;
+  box-shadow: none;
+}
+
+.variant-tertiary:hover:not(:disabled) {
+  background-color: rgba(0, 217, 255, 0.1);
+  transition: var(--transition-fast);
+}
+
+.variant-tertiary:active:not(:disabled) {
+  background-color: rgba(0, 217, 255, 0.15);
+}
+
+.variant-tertiary:focus-visible {
+  outline: 2px solid var(--color-accent-electric);
+  outline-offset: 2px;
+  box-shadow: var(--shadow-focus);
+}
+
+/* ===== DISABLED STATE (All variants) ===== */
+
+.button:disabled {
+  background-color: var(--color-bg-tertiary);
+  color: var(--color-text-tertiary);
+  cursor: not-allowed;
+  opacity: 0.5;
+  box-shadow: none;
+}
+
+.button:disabled:hover {
+  transform: none;
+  background-color: var(--color-bg-tertiary);
+}
+
+/* ===== SIZES ===== */
+
+.size-small {
+  height: 28px;
+  padding: 4px 12px;
+  font-size: var(--font-size-xs);
+  border-radius: var(--radius-small);
+  min-width: 28px;
+}
+
+.size-medium {
+  height: 36px;
+  padding: var(--space-sm) var(--space-lg);
+  font-size: var(--font-size-sm);
+  border-radius: var(--radius-small);
+  min-width: 40px;
+}
+
+.size-large {
+  height: 44px;
+  padding: 12px 20px;
+  font-size: var(--font-size-base);
+  border-radius: var(--radius-medium);
+  font-weight: var(--font-weight-semibold);
+  min-width: 44px;
+}
+
+.size-extraLarge {
+  height: 52px;
+  padding: 16px 24px;
+  font-size: var(--font-size-base);
+  border-radius: var(--radius-medium);
+  font-weight: var(--font-weight-bold);
+  min-width: 52px;
+}
+
+/* ===== ICON BUTTON ===== */
+
+.iconButton {
+  width: 36px;
+  height: 36px;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-small);
+  border: 1px solid var(--color-border-primary);
+  background-color: transparent;
+  color: var(--color-text-secondary);
+}
+
+.iconButton:hover:not(:disabled) {
+  background-color: rgba(0, 217, 255, 0.1);
+  color: var(--color-accent-electric);
+  border-color: var(--color-accent-electric);
+}
+
+.iconButton:active:not(:disabled) {
+  background-color: rgba(0, 217, 255, 0.2);
+  color: var(--color-accent-electric);
+}
+
+.iconButton:focus-visible {
+  outline: 2px solid var(--color-accent-electric);
+  outline-offset: 2px;
+}
+
+/* ===== LOADING STATE ===== */
+
+.loading {
+  position: relative;
+  color: transparent;
+}
+
+.loading::after {
+  content: '';
+  position: absolute;
+  width: 16px;
+  height: 16px;
+  top: 50%;
+  left: 50%;
+  margin-left: -8px;
+  margin-top: -8px;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-right-color: white;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+/* ===== FULL WIDTH ===== */
+
+.fullWidth {
+  width: 100%;
+  display: flex;
+}
+
+/* ===== ICON POSITIONING ===== */
+
+.icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 1em;
+  height: 1em;
+}
+
+.iconLeft {
+  order: -1;
+  margin-right: 4px;
+}
+
+.iconRight {
+  order: 1;
+  margin-left: 4px;
+}
+
+/* ===== ACCESSIBILITY ===== */
+
+.button:focus-visible {
+  position: relative;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .button,
+  .button::after {
+    animation: none !important;
+    transition: none !important;
+  }
+}
+
+/* ===== FOCUS VISIBLE (Keyboard Navigation) ===== */
+
+button.button:focus-visible,
+.button[data-focus-visible-added] {
+  outline: 2px solid var(--color-accent-electric);
+  outline-offset: 2px;
+  box-shadow: var(--shadow-focus);
+}

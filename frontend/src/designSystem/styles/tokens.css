@@ -1,0 +1,293 @@
+/**
+ * Design System CSS Variables
+ * Generated from design tokens
+ * Use these variables in your CSS/styles
+ */
+
+:root {
+  /* ===== COLORS ===== */
+
+  /* Background Colors */
+  --color-bg-primary: #0f1117;
+  --color-bg-secondary: #161b22;
+  --color-bg-tertiary: #21262d;
+  --color-bg-elevated: #30363d;
+
+  /* Text Colors */
+  --color-text-primary: #e6edf3;
+  --color-text-secondary: #8b949e;
+  --color-text-tertiary: #6e7681;
+  --color-text-inverse: #0f1117;
+
+  /* Accent Colors */
+  --color-accent-electric: #00d9ff;
+  --color-accent-deep-blue: #0969da;
+  --color-accent-bright: #1f6feb;
+
+  /* Status Colors */
+  --color-status-success: #10b981;
+  --color-status-warning: #f59e0b;
+  --color-status-error: #ef4444;
+  --color-status-info: #3b82f6;
+
+  /* Neutral Colors */
+  --color-neutral-50: #ffffff;
+  --color-neutral-100: #f6f8fa;
+  --color-neutral-200: #eaeef2;
+  --color-neutral-300: #d0d7de;
+  --color-neutral-400: #8b949e;
+  --color-neutral-500: #6e7681;
+  --color-neutral-600: #57606a;
+  --color-neutral-700: #424a53;
+  --color-neutral-800: #30363d;
+  --color-neutral-900: #21262d;
+
+  /* Border Colors */
+  --color-border-primary: #30363d;
+  --color-border-secondary: #21262d;
+  --color-border-subtle: #0d1117;
+
+  /* Chart Colors */
+  --color-chart-1: #00d9ff;
+  --color-chart-2: #10b981;
+  --color-chart-3: #f59e0b;
+  --color-chart-4: #3b82f6;
+  --color-chart-5: #8b5cf6;
+  --color-chart-6: #ec4899;
+
+  /* ===== TYPOGRAPHY ===== */
+
+  /* Font Families */
+  --font-family-sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+  --font-family-mono: 'Courier New', Courier, monospace;
+  --font-family-system: system-ui, -apple-system, sans-serif;
+
+  /* Font Sizes */
+  --font-size-xs: 12px;
+  --font-size-sm: 14px;
+  --font-size-base: 16px;
+  --font-size-lg: 20px;
+  --font-size-xl: 24px;
+  --font-size-2xl: 32px;
+  --font-size-3xl: 40px;
+  --font-size-4xl: 48px;
+
+  /* Font Weights */
+  --font-weight-regular: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+
+  /* Line Heights */
+  --line-height-tight: 1.2;
+  --line-height-normal: 1.5;
+  --line-height-relaxed: 1.75;
+
+  /* Letter Spacing */
+  --letter-spacing-tight: -0.5px;
+  --letter-spacing-normal: 0px;
+  --letter-spacing-wide: 0.5px;
+
+  /* ===== SPACING ===== */
+
+  --space-xs: 4px;
+  --space-sm: 8px;
+  --space-md: 12px;
+  --space-lg: 16px;
+  --space-xl: 24px;
+  --space-xxl: 32px;
+  --space-3xl: 48px;
+  --space-4xl: 64px;
+
+  /* ===== BORDERS ===== */
+
+  /* Border Radius */
+  --radius-none: 0px;
+  --radius-small: 4px;
+  --radius-medium: 8px;
+  --radius-large: 12px;
+  --radius-extra-large: 16px;
+  --radius-full: 9999px;
+
+  /* Border Width */
+  --border-hairline: 0.5px;
+  --border-thin: 1px;
+  --border-medium: 2px;
+  --border-thick: 3px;
+
+  /* ===== SHADOWS ===== */
+
+  --shadow-depth0: none;
+  --shadow-depth1: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+  --shadow-depth2: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+  --shadow-depth3: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
+  --shadow-depth4: 0 15px 25px rgba(0, 0, 0, 0.15), 0 5px 10px rgba(0, 0, 0, 0.05);
+  --shadow-focus: 0 0 0 3px rgba(0, 217, 255, 0.25);
+  --shadow-inset: inset 0 2px 4px rgba(0, 0, 0, 0.25);
+
+  /* ===== TRANSITIONS ===== */
+
+  --transition-fast: all 100ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-standard: all 200ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-slow: all 300ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-ease-out: all 200ms cubic-bezier(0, 0, 0.2, 1);
+  --transition-ease-in-out: all 200ms cubic-bezier(0.4, 0, 0.2, 1);
+
+  /* ===== ANIMATIONS ===== */
+
+  --duration-instant: 0ms;
+  --duration-fast: 100ms;
+  --duration-standard: 200ms;
+  --duration-slow: 300ms;
+  --duration-extra-slow: 500ms;
+
+  /* ===== BREAKPOINTS ===== */
+
+  --breakpoint-xs: 0px;
+  --breakpoint-sm: 641px;
+  --breakpoint-md: 769px;
+  --breakpoint-lg: 1025px;
+  --breakpoint-xl: 1281px;
+  --breakpoint-2xl: 1537px;
+}
+
+/* ===== ANIMATIONS KEYFRAMES ===== */
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes scaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -1000px 0;
+  }
+  100% {
+    background-position: 1000px 0;
+  }
+}
+
+/* ===== UTILITY CLASSES ===== */
+
+.text-primary {
+  color: var(--color-text-primary);
+}
+
+.text-secondary {
+  color: var(--color-text-secondary);
+}
+
+.text-accent {
+  color: var(--color-accent-electric);
+}
+
+.bg-primary {
+  background-color: var(--color-bg-primary);
+}
+
+.bg-secondary {
+  background-color: var(--color-bg-secondary);
+}
+
+.border-primary {
+  border-color: var(--color-border-primary);
+}
+
+.shadow-depth1 {
+  box-shadow: var(--shadow-depth1);
+}
+
+.shadow-depth2 {
+  box-shadow: var(--shadow-depth2);
+}
+
+.shadow-depth3 {
+  box-shadow: var(--shadow-depth3);
+}
+
+.shadow-depth4 {
+  box-shadow: var(--shadow-depth4);
+}
+
+.transition-standard {
+  transition: var(--transition-standard);
+}
+
+.transition-fast {
+  transition: var(--transition-fast);
+}
+
+.transition-slow {
+  transition: var(--transition-slow);
+}
+
+/* Focus visible styles for accessibility */
+:focus-visible {
+  outline: 2px solid var(--color-accent-electric);
+  outline-offset: 2px;
+  box-shadow: var(--shadow-focus);
+}
+
+button:focus-visible,
+a:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible {
+  outline: 2px solid var(--color-accent-electric);
+  outline-offset: 2px;
+}

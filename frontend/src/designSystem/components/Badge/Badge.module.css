@@ -1,0 +1,74 @@
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-xs);
+  padding: 4px 8px;
+  border-radius: var(--radius-full);
+  font-family: var(--font-family-sans);
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-semibold);
+  white-space: nowrap;
+}
+
+.variant-success {
+  background-color: rgba(16, 185, 129, 0.15);
+  color: var(--color-status-success);
+}
+
+.variant-warning {
+  background-color: rgba(245, 158, 11, 0.15);
+  color: var(--color-status-warning);
+}
+
+.variant-error {
+  background-color: rgba(239, 68, 68, 0.15);
+  color: var(--color-status-error);
+}
+
+.variant-info {
+  background-color: rgba(59, 130, 246, 0.15);
+  color: var(--color-status-info);
+}
+
+.variant-neutral {
+  background-color: var(--color-bg-tertiary);
+  color: var(--color-text-secondary);
+}
+
+.outline {
+  background-color: transparent;
+  border: 1px solid currentColor;
+}
+
+.size-small {
+  padding: 2px 6px;
+  font-size: 11px;
+}
+
+.size-medium {
+  padding: 4px 8px;
+  font-size: var(--font-size-xs);
+}
+
+.size-large {
+  padding: 6px 12px;
+  font-size: var(--font-size-sm);
+}
+
+.closeBtn {
+  background: none;
+  border: none;
+  color: currentColor;
+  cursor: pointer;
+  padding: 0;
+  font-size: 16px;
+  line-height: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: var(--transition-fast);
+}
+
+.closeBtn:hover {
+  opacity: 0.7;
+}

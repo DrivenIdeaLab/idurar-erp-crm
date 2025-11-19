@@ -1,3 +1,6 @@
+/* Design System Tokens - Global CSS Variables */
+@import '../designSystem/styles/tokens.css';
+
 @import './partials/rest.css';
 @import './partials/customAntd.css';
 @import './partials/layout.css';

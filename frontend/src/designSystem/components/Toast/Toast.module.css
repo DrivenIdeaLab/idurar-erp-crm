@@ -1,0 +1,118 @@
+.toast {
+  position: fixed;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-md);
+  padding: var(--space-md) var(--space-lg);
+  border-radius: var(--radius-medium);
+  box-shadow: var(--shadow-depth3);
+  max-width: 400px;
+  z-index: 2000;
+  animation: slideUp 300ms cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+/* Position variants */
+.position-top-left {
+  top: var(--space-xl);
+  left: var(--space-xl);
+}
+
+.position-top-right {
+  top: var(--space-xl);
+  right: var(--space-xl);
+}
+
+.position-bottom-left {
+  bottom: var(--space-xl);
+  left: var(--space-xl);
+}
+
+.position-bottom-right {
+  bottom: var(--space-xl);
+  right: var(--space-xl);
+}
+
+/* Type variants */
+.type-success {
+  background-color: rgba(16, 185, 129, 0.95);
+  color: white;
+  border: 1px solid var(--color-status-success);
+}
+
+.type-warning {
+  background-color: rgba(245, 158, 11, 0.95);
+  color: white;
+  border: 1px solid var(--color-status-warning);
+}
+
+.type-error {
+  background-color: rgba(239, 68, 68, 0.95);
+  color: white;
+  border: 1px solid var(--color-status-error);
+}
+
+.type-info {
+  background-color: rgba(59, 130, 246, 0.95);
+  color: white;
+  border: 1px solid var(--color-status-info);
+}
+
+.content {
+  flex: 1;
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  line-height: var(--line-height-normal);
+}
+
+.closeBtn {
+  background: none;
+  border: none;
+  color: currentColor;
+  cursor: pointer;
+  font-size: 24px;
+  line-height: 1;
+  opacity: 0.7;
+  transition: var(--transition-fast);
+  padding: 0;
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.closeBtn:hover {
+  opacity: 1;
+}
+
+.closeBtn:focus-visible {
+  outline: 2px solid currentColor;
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+
+@media (max-width: 600px) {
+  .toast {
+    left: var(--space-md) !important;
+    right: var(--space-md) !important;
+    max-width: calc(100% - 32px);
+  }
+
+  .position-top-left,
+  .position-top-right {
+    top: var(--space-md);
+  }
+
+  .position-bottom-left,
+  .position-bottom-right {
+    bottom: var(--space-md);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .toast {
+    animation: none;
+  }
+}
